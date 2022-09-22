@@ -1,15 +1,15 @@
 'use strict';
 
-require ('dotenv').config();
+require('dotenv').config();
 
-const { sequelizeDatabase, CarModel } = require('./src/models/cars');
-const { sequelizeDatabase, GuitarsModel } = require('./src/models/guitars');
+const { sequelizeDatabase } = require('./src/models');
 const { start } = require('./src/server.js');
+// const { CarsModel } = require('./src/models/guitars');
+// const { GuitarsModel } = require('./src/models/guitars');
 
 sequelizeDatabase.sync()
-.then(() => {
-  console.log('Successful Connection!');
-})
-.catch(err => console.error(err));
-
-start();
+  .then(() => {
+    console.log('Successful Connection!');
+    start();
+  })
+  .catch(err => console.error(err));
