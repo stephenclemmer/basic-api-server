@@ -7,12 +7,11 @@ module.exports = (sequelizeDatabase, DataTypes) => {
       allowNull: false,
     },
     year: {
-      type: DataTypes.INTEGER, 
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     color: {
-      type: DataTypes.ENUM,
-      values: ['red', 'green', 'blue'],
+      type: DataTypes.STRING,
       allowNull: true,
     },
   });

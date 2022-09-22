@@ -3,8 +3,8 @@
 require('dotenv').config();
 const { Sequelize, DataTypes } = require('sequelize');
 
-const carsSchema = require('./cars.schema.js');
-const guitarsSchema = require('./guitars.schema.js');
+const carsSchema = require('./cars');
+const guitarsSchema = require('./guitars');
 
 const DATABASE_URL = process.env.NODE_ENV === 'test'
   ? 'sqlite:memory'

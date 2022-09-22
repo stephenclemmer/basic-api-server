@@ -2,14 +2,23 @@
 
 const supertest = require('supertest');
 const { app } = require('../src/server');
+const { sequelizeDatabase } = require('../src/models');
 const request = supertest(app);
+
+beforeAll(async () => {
+  await sequelizeDatabase.sync();
+});
+
+afterAll(async () => {
+  await sequelizeDatabase.drop();
+});
 
 describe ('API Server', () => {
   it('handles invalid requests', async () => {
     const response = await request.get('/foo');
     expect(response.status).toEqual(404);
-  });  
-  
+  });
+
   it('handles errors', async () => {
     const response = await request.get('/bad');
     expect(response.status).toEqual(500);
@@ -23,6 +32,6 @@ describe ('API Server', () => {
     expect(response.text).toBeTruthy();
     expect(response.text).toEqual('Hello World');
   });
-  
-  
+
+
 });

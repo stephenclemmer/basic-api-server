@@ -1,53 +1,71 @@
 'use strict';
 
 const express = require('express');
-const { CarsModel } = require('../models/cars');
-
 const router = express.Router();
-
-
+const { CarsModel } = require('../models/cars');
+const validator = require('../middleware/validator');
 
 // Create
-router.post('/cars', async (req, res, send) => {
-  console.log('req body', req.body);
-
-  const newCar = await CarsModel.create(req.body);
+router.post('/guitars', validator, (req, res, send) => {
+  const newCar = CarsModel.create(req.body);
+  console.log('new car', newCar);
   res.status(200).send(newCar);
 });
 
 // Read
-router.get('/cars', (req, res, next) => {
-  console.log(res);
-  // const results = {
-  // }
-  // res.status(200).send('Hello World');
+router.get('/guitars', async (req, res, next) => {
+  try {
+    let cars = await CarsModel.findAll();
+    res.status(200).send(cars);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Read One
-router.get('/cars/:id', (req, res, next) => {
-  // res.status(200).send('Hello World');
+router.get('/cars/:id', async (req, res, next) => {
+  try {
+    let carId = req.params.id;
+    let car = await CarsModel.findAll({
+      where: {
+        id: carId,
+      },
+    });
+    res.status(200).send(car);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Update
-router.put('/cars/:id')
+router.put('/cars/:id', async (req, res, next) => {
+  try {
+    let carId = req.params.id;
+    let data = req.body;
+    let updatedCar = await CarsModel.update(data, {
+      where: {
+        id: carId,
+      },
+    });
+    res.status(201).send(updatedCar);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Destroy
-router.delete('/cars/:id')
-
-// Update
-
-
-// Delete
-// router.delete('/cars/:id', deleteCarInfo);
-
-// async function deleteCarInfo(request, response, next) {
-//   const id = request.params.id;
-//   try {
-//     await Location.findByIdAndDelete(id);
-//     response.status(204).send('success!');
-//   } catch (error) {
-//     next(error);
-//   }
-// }
+router.delete('/cars/:id', async (req, res, next) => {
+  try {
+    let carId = req.params.id;
+    await CarsModel.destroy({
+      where: {
+        id: carId,
+      },
+    });
+    res.status(204).send('Car Deleted');
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
