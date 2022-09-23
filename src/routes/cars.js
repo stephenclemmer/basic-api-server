@@ -2,18 +2,18 @@
 
 const express = require('express');
 const router = express.Router();
-const { CarsModel } = require('../models/cars');
+const { CarsModel } = require('../models');
 const validator = require('../middleware/validator');
 
 // Create
-router.post('/guitars', validator, (req, res, send) => {
-  const newCar = CarsModel.create(req.body);
+router.post('/cars', validator, async (req, res, send) => {
+  const newCar = await CarsModel.create(req.body);
   console.log('new car', newCar);
   res.status(200).send(newCar);
 });
 
 // Read
-router.get('/guitars', async (req, res, next) => {
+router.get('/cars', async (req, res, next) => {
   try {
     let cars = await CarsModel.findAll();
     res.status(200).send(cars);
@@ -62,7 +62,7 @@ router.delete('/cars/:id', async (req, res, next) => {
         id: carId,
       },
     });
-    res.status(204).send('Car Deleted');
+    res.status(200).send('Car Deleted');
   } catch (error) {
     next(error);
   }

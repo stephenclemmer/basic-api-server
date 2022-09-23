@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { GuitarsModel } = require('../models/guitars');
+const { GuitarsModel } = require('../models');
 const validator = require('../middleware/validator');
 
 // Create
@@ -62,7 +62,7 @@ router.delete('/guitars/:id', async (req, res, next) => {
         id: guitarId,
       },
     });
-    res.status(204).send('Guitar Deleted');
+    res.status(200).send('Guitar Deleted');
   } catch (error) {
     next(error);
   }
