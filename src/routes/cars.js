@@ -69,4 +69,3 @@ router.delete('/cars/:id', async (req, res, next) => {
 });
 
 module.exports = router;
-// DELETE ME

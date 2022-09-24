@@ -13,9 +13,9 @@ const PORT = process.env.PORT || 3002;
 
 const app = express();
 app.use(express.json());
+app.use(logger);
 app.use(carsRouter);
 app.use(guitarsRouter);
-app.use(logger);
 
 app.get('/', (req, res, next) => {
   res.status(200).send('Hello World');
