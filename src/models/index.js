@@ -21,9 +21,6 @@ const sequelizeDatabase = new Sequelize(DATABASE_URL, {
   },
 });
 
-
-
-
 // Uncomment for development. Comment out for production
 // const sequelizeDatabase = new Sequelize(DATABASE_URL, {});
 
