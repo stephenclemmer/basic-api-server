@@ -7,7 +7,7 @@ const carsSchema = require('./cars.js');
 const guitarsSchema = require('./guitars.js');
 
 const DATABASE_URL = process.env.NODE_ENV === 'test'
-  ? 'sqlite:memory'
+  ? 'sqlite::memory'
   : process.env.DATABASE_URL;
 console.log(DATABASE_URL);
 
